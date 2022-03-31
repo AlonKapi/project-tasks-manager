@@ -8,7 +8,8 @@ export const checkLoggedIn = (req, res, next) => {
 };
 
 export const validateAuthRequestDetails = (req, res, next) => {
-
+	const { email, password } = req.body;
+	
 	if (!email) {
 		return res.status(400).send('Missing email.');
 	}

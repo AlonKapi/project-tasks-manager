@@ -7,7 +7,7 @@ export const getUserByEmail = async (email) => {
 
 export const registerUser = async (email, password) => {
     const hashedPassword = await bcrypt.hash(password, 10);
-    const user = {email, password: hashedPassword};
+    const user = new UserModel({email, password: hashedPassword});
     await user.save();
 
     console.log(user);
@@ -17,7 +17,7 @@ export const registerUser = async (email, password) => {
 export const loginUser = async (email, password) => {
     const user = await getUserByEmail(email);
 
-    if (!existingUser) {
+    if (!user) {
         console.log(`User ${email} not registered.`);
         return false;
     }

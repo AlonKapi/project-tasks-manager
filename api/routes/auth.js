@@ -43,7 +43,7 @@ export default (app) => {
 
     route.get('/logout', checkLoggedIn, async (req, res) => {
         req.session.destroy(() => {
-            console.log(`Logging out user ${req.session.email}`);
+            console.log(`Logging out user ${req.loggedInUser}`);
         });
         return res.sendStatus(200);
 	});

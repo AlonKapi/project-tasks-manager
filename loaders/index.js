@@ -1,9 +1,9 @@
 import expressLoader from './express.js';
-import mongooseLoader from './mongoose';
+import mongooseLoader from './mongoose.js';
 
 export default async ({ expressApp }) => {
     mongooseLoader();
-	Logger.info('MongoDB connected');
+	console.log('MongoDB connected');
 
 	await expressLoader({ app: expressApp });
 	console.log('Express Initialized');

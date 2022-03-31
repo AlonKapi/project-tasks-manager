@@ -1,0 +1,27 @@
+### Register a user
+
+POST http://localhost:3001/auth/register
+Content-Type: application/json
+
+{
+    "email": "alon@gmail.com",
+    "password": "1234"
+}
+
+### Login a user
+
+POST http://localhost:3001/auth/login
+Content-Type: application/json
+
+{
+    "email": "alon@gmail.com",
+    "password": "1234"
+}
+
+### Logout a user
+
+GET http://localhost:3001/auth/logout
+
+### Silent login a user
+
+GET http://localhost:3001/auth/silentlogin
