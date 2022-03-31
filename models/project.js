@@ -8,6 +8,7 @@ const taskSchema = new mongoose.Schema({
     },
     priority: {
         type: Number,
+        required: true,
         min: 1,
         max: 3
     },

@@ -12,21 +12,26 @@ POST http://localhost:3001/project
 Content-Type: application/json
 
 {
-    "name": "My fourth project"
+    "name": "Best Project"
 }
 
 ### Get user projects
 GET http://localhost:3001/project
 
 ### Get user project by id
-GET http://localhost:3001/project/6245af6bade0244cf9613da2
+GET http://localhost:3001/project/6245b7ed07da71cc2857f6f6
 
 ### Update user project by id
-PUT http://localhost:3001/project/6245af6bade0244cf9613da2
+PUT http://localhost:3001/project/6245b7ed07da71cc2857f6f6
 Content-Type: application/json
 
 {
-    "name": "lol"
+    "toDo": [
+        {
+            "name": "Task 1",
+            "priority": 1
+        }
+    ]
 }
 
 ### Delete user project by id
