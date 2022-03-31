@@ -14,10 +14,13 @@ export default (app) => {
 				return res.status(401).send('User already exists with that email.');
 			}
 
-            console.log(`Registered user ${email}`);
-            const createdUser = await registerUser(email, password);
-            req.session.email = createdUser.email;
-            return res.status(201).json({ email: createdUser.email });
+            const user = await registerUser(email, password);
+            console.log(`Registered user ${user.email}`);
+
+            req.session.userId = user.id;
+            req.session.email = user.email;
+            
+            return res.status(201).json({ email: user.email });
         } catch (error) {
             console.log(error);
             return res.sendStatus(500);
@@ -28,12 +31,17 @@ export default (app) => {
 		const { email, password } = req.body;
 
 		try {
-            if (!await loginUser(email, password)) {
+            const user = await loginUser(email, password);
+
+            if (!user) {
                 return res.status(401).send('Bad login credentials.');
             }
 
-            console.log(`Logged in user ${email}`);
-            req.session.email = email;
+            console.log(`Logged in user ${user.email}`);
+
+            req.session.userId = user.id;
+            req.session.email = user.email;
+
             return res.status(200).json({ email: email });
         } catch (error) {
             console.log(error);
@@ -43,12 +51,12 @@ export default (app) => {
 
     route.get('/logout', checkLoggedIn, async (req, res) => {
         req.session.destroy(() => {
-            console.log(`Logging out user ${req.loggedInUser}`);
+            console.log(`Logging out user ${req.email}`);
         });
         return res.sendStatus(200);
 	});
 
     route.get('/silentlogin', checkLoggedIn, async (req, res) => {
-		return res.status(200).json({ email: req.loggedInUser });
+		return res.status(200).json({ email: req.email });
 	});
 };

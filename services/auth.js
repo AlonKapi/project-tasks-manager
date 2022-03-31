@@ -7,10 +7,10 @@ export const getUserByEmail = async (email) => {
 
 export const registerUser = async (email, password) => {
     const hashedPassword = await bcrypt.hash(password, 10);
+    
     const user = new UserModel({email, password: hashedPassword});
     await user.save();
 
-    console.log(user);
     return user;
 }
 
@@ -19,8 +19,13 @@ export const loginUser = async (email, password) => {
 
     if (!user) {
         console.log(`User ${email} not registered.`);
-        return false;
+        return null;
     }
 
-    return await bcrypt.compare(password, user.password);
+    if (!await bcrypt.compare(password, user.password)) {
+        console.log(`User ${email} password doesn't match.`);
+        return null;
+    }
+
+    return user;
 }

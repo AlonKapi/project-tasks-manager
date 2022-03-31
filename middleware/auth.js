@@ -1,9 +1,10 @@
 export const checkLoggedIn = (req, res, next) => {
-	if (!req.session.email) {
+	if (!req.session.userId) {
 		return res.status(401).send('Not logged in.');
 	}
 
-	req.loggedInUser = req.session.email;
+	req.userId = req.session.userId;
+	req.email = req.session.email;
 	next();
 };
 

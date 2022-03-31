@@ -1,0 +1,33 @@
+### Login a user
+POST http://localhost:3001/auth/login
+Content-Type: application/json
+
+{
+    "email": "alon@gmail.com",
+    "password": "1234"
+}
+
+### Create a project
+POST http://localhost:3001/project
+Content-Type: application/json
+
+{
+    "name": "My fourth project"
+}
+
+### Get user projects
+GET http://localhost:3001/project
+
+### Get user project by id
+GET http://localhost:3001/project/6245af6bade0244cf9613da2
+
+### Update user project by id
+PUT http://localhost:3001/project/6245af6bade0244cf9613da2
+Content-Type: application/json
+
+{
+    "name": "lol"
+}
+
+### Delete user project by id
+DELETE http://localhost:3001/project/6245af6bade0244cf9613da2
