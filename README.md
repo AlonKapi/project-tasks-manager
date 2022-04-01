@@ -1,6 +1,6 @@
 # Project tasks manager
 
-Trello like project manager built with NodeJS, Express, MongoDB and React.
+Trello like project manager built with NodeJS, Express, MongoDB, React and Material UI.
 
 Functionalities:
 - Auth (login + register)
