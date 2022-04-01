@@ -1,0 +1,96 @@
+.main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 90vh;
+    width: 100vw;
+}
+
+.user-header-details {
+    display: flex;
+    align-items: center;
+}
+
+.form-content {
+    display: flex;
+    flex-direction: column;
+    width: 350px;
+    padding: 2em;
+    box-shadow: rgb(0 0 0 / 20%) 0px 3px 3px -2px, rgb(0 0 0 / 14%) 0px 3px 4px 0px, rgb(0 0 0 / 12%) 0px 1px 8px 0px;
+    border-radius: 5px;
+}
+
+.form-content .input-field {
+    margin-top: 0.5em;
+}
+
+.form-buttons {
+    display: flex;
+    flex-direction: column;
+    margin-top: 1em;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-buttons button {
+    min-width: 150px;
+}
+
+.form-buttons button:last-child {
+    margin-top: 0.5em;
+}
+
+.project-container {
+    width: 90%;
+    height: 90%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.tasks-container {
+    width: 300px;
+    height: auto;
+    box-shadow: rgb(0 0 0 / 20%) 0px 3px 3px -2px, rgb(0 0 0 / 14%) 0px 3px 4px 0px, rgb(0 0 0 / 12%) 0px 1px 8px 0px;
+    border-radius: 5px;
+    margin: 1em;
+    padding: 1em;
+}
+
+.project-actions {
+    align-self: flex-start;
+    margin: 1em;
+}
+
+.project-actions .project-action-btn {
+    white-space: nowrap;
+}
+
+.MuiTextField-root.task-name-field {
+    margin-bottom: 1em;
+}
+
+.task {
+    font-size: 0.9rem;
+    box-shadow: rgb(0 0 0 / 20%) 0px 3px 3px -2px, rgb(0 0 0 / 14%) 0px 3px 4px 0px, rgb(0 0 0 / 12%) 0px 1px 8px 0px;
+    border-radius: 5px;
+    padding: 1em;
+    margin: 1em 0.2em;
+}
+
+.MuiChip-root.task-high-priority {
+    background-color: red;
+    color: white;
+}
+
+.MuiChip-root.task-medium-priority {
+    background-color: orange;
+    color: white;
+}
+
+footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

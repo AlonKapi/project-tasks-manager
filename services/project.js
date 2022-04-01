@@ -42,3 +42,12 @@ export const updateProject = async (projectId, updates) => {
 export const deleteProjectById = async (projectId) => {
     return await ProjectModel.findByIdAndDelete(projectId);
 }
+
+export const addTodoTask = async (projectId, name, priority) => {
+    const project = await getProjectById(projectId);
+    
+    project.toDo.push({name, priority});
+    await project.save();
+
+    return project.toDo;
+};

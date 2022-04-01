@@ -12,7 +12,7 @@ POST http://localhost:3001/project
 Content-Type: application/json
 
 {
-    "name": "Best Project"
+    "name": "123"
 }
 
 ### Get user projects

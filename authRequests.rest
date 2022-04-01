@@ -1,5 +1,4 @@
 ### Register a user
-
 POST http://localhost:3001/auth/register
 Content-Type: application/json
 
@@ -9,7 +8,6 @@ Content-Type: application/json
 }
 
 ### Login a user
-
 POST http://localhost:3001/auth/login
 Content-Type: application/json
 
@@ -19,9 +17,7 @@ Content-Type: application/json
 }
 
 ### Logout a user
-
 GET http://localhost:3001/auth/logout
 
 ### Silent login a user
-
 GET http://localhost:3001/auth/silentlogin

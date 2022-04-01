@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { checkLoggedIn } from '../../middleware/auth.js';
-import { validateProjectId, validateProjectForUpdate } from '../../middleware/project.js';
-import { createProject, isProjectExistsByName, isProjectExistsById, getUserProjects, getProjectById, deleteProjectById, updateProject } from '../../services/project.js';
+import { validateProjectId, validateProjectForUpdate, validateTaskForCreation } from '../../middleware/project.js';
+import { createProject, isProjectExistsByName, isProjectExistsById, getUserProjects, getProjectById, deleteProjectById, updateProject, addTodoTask } from '../../services/project.js';
 const route = Router();
 
 export default (app) => {
@@ -73,6 +73,22 @@ export default (app) => {
             }
 
             return res.status(200).json({ id: req.projectId });
+        } catch (error) {
+            console.log(error);
+            return res.sendStatus(500);
+        }
+    });
+
+    route.post('/:projectId/task', checkLoggedIn, validateProjectId, validateTaskForCreation, async (req, res) => {
+        const {name, priority} = req.body;
+
+        try {
+            if (!await isProjectExistsById(req.projectId)) {
+                return res.status(404).send('Not found project by this id.');
+            }
+
+            const updatedTodoList = await addTodoTask(req.projectId, name, priority);
+            return res.status(201).json(updatedTodoList);
         } catch (error) {
             console.log(error);
             return res.sendStatus(500);
