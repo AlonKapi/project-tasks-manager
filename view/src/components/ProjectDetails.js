@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { callGetProjectService, callCreateTaskService } from '../utils/projectServices';
+import { DragDropContext } from 'react-beautiful-dnd';
+import { Button } from '@mui/material';
+import { callGetProjectService, callCreateTaskService, callUpdateProjectService } from '../utils/projectServices';
 import TasksList from './TasksList';
 import CreateTask from './CreateTask';
-import { Button } from '@mui/material';
 
 export default function ProjectDetails({selectedProjectId}) {
     const [projectDetails, setProjectDetails] = useState();
@@ -29,7 +30,44 @@ export default function ProjectDetails({selectedProjectId}) {
         setProjectDetails((prevState) => ({
             ...prevState,
             toDo: updatedTodoList
-        }))
+        }));
+    };
+
+    const updateProject = async (updates) => {
+        await callUpdateProjectService(selectedProjectId, updates);
+    };
+
+    const handleOnDragEnd = async (result) => {
+        console.log(result);
+
+        if (!result || !result.destination) return;
+
+        if (result.source.droppableId === result.destination.droppableId) {
+            const sourceList = Array.from(projectDetails[result.source.droppableId]);
+            const [reorderedItem] = sourceList.splice(result.source.index, 1);
+            sourceList.splice(result.destination.index, 0, reorderedItem);
+
+            setProjectDetails((prevState) => ({
+                ...prevState,
+                [result.source.droppableId]: sourceList
+            }));
+
+            updateProject({[result.source.droppableId]: sourceList});
+        } else {
+            const sourceList = Array.from(projectDetails[result.source.droppableId]);
+            const [reorderedItem] = sourceList.splice(result.source.index, 1);
+
+            const destinationList = Array.from(projectDetails[result.destination.droppableId]);
+            destinationList.splice(result.destination.index, 0, reorderedItem);
+
+            setProjectDetails((prevState) => ({
+                ...prevState,
+                [result.source.droppableId]: sourceList,
+                [result.destination.droppableId]: destinationList
+            }));
+
+            updateProject({[result.source.droppableId]: sourceList, [result.destination.droppableId]: destinationList});
+        }
     };
 
     return (
@@ -40,9 +78,11 @@ export default function ProjectDetails({selectedProjectId}) {
             {
                 projectDetails && (
                     <div className='project-container'>
-                        <TasksList listName={'To do'} tasks={projectDetails.toDo}/>
-                        <TasksList listName={'Doing'} tasks={projectDetails.doing}/>
-                        <TasksList listName={'Done'} tasks={projectDetails.done}/>
+                        <DragDropContext onDragEnd={handleOnDragEnd}>
+                            <TasksList listName={'To do'} listId={'toDo'} tasks={projectDetails.toDo}/>
+                            <TasksList listName={'Doing'} listId={'doing'} tasks={projectDetails.doing}/>
+                            <TasksList listName={'Done'} listId={'done'} tasks={projectDetails.done}/>
+                        </DragDropContext>
                     </div>
                 )
             }
