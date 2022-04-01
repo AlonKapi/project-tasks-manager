@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { AppBar, Toolbar, Typography, IconButton, Menu, MenuItem } from '@mui/material';
 import AccountCircle from '@mui/icons-material/AccountCircle';
+import { callLogoutService } from '../utils/authServices';
 import AppContext from '../context/AppContext';
 
 export default function Header() {
@@ -13,6 +14,11 @@ export default function Header() {
   
     const handleClose = () => {
       setAnchorEl(null);
+    };
+
+    const handleSignOut = async () => {
+        await callLogoutService();
+        logout();
     };
 
 	return (
@@ -51,7 +57,7 @@ export default function Header() {
                         open={Boolean(anchorEl)}
                         onClose={handleClose}
                     >
-                        <MenuItem onClick={logout}>Sign Out</MenuItem>
+                        <MenuItem onClick={handleSignOut}>Sign Out</MenuItem>
                     </Menu>
                 </div>)}
             </Toolbar>
